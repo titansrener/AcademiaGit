@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AcademiaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="ID_ALUNO" />
+          </Key>
+          <Property Name="ID_ALUNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_NOME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NR_CPF" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="NR_CELULAR" Type="nvarchar" MaxLength="8" />
+          <Property Name="DS_ENDERECO" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DS_SEXO" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="DT_NASCIMENTO" Type="datetime" />
+          <Property Name="ID_ACADEMIA" Type="int" />
+        </EntityType>
+        <EntityType Name="Filial">
+          <Key>
+            <PropertyRef Name="ID_ACADEMIA" />
+          </Key>
+          <Property Name="ID_ACADEMIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_ACADEMIA" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DS_ENDERECO" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="NR_TELEFONE" Type="nvarchar" MaxLength="8" />
+          <Property Name="DS_BAIRRO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DS_EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="VL_PRECO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mensalidade">
+          <Key>
+            <PropertyRef Name="ID_TITULO" />
+          </Key>
+          <Property Name="ID_TITULO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ALUNO" Type="int" Nullable="false" />
+          <Property Name="NU_ANO" Type="int" Nullable="false" />
+          <Property Name="NU_PARCELA" Type="int" Nullable="false" />
+          <Property Name="DT_VENCIMENTO" Type="date" Nullable="false" />
+          <Property Name="ST_TITULO" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="DT_PAGAMENTO" Type="datetime" />
+          <Property Name="VL_TITULO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Aluno_Filial">
+          <End Role="Filial" Type="Self.Filial" Multiplicity="0..1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filial">
+              <PropertyRef Name="ID_ACADEMIA" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="ID_ACADEMIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ALUNO_TITULO">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="1" />
+          <End Role="Mensalidade" Type="Self.Mensalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="ID_ALUNO" />
+            </Principal>
+            <Dependent Role="Mensalidade">
+              <PropertyRef Name="ID_ALUNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AcademiaDBModelStoreContainer">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filial" EntityType="Self.Filial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mensalidade" EntityType="Self.Mensalidade" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Aluno_Filial" Association="Self.FK_Aluno_Filial">
+            <End Role="Filial" EntitySet="Filial" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ALUNO_TITULO" Association="Self.FK_ALUNO_TITULO">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Mensalidade" EntitySet="Mensalidade" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AcademiaDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AcademiaDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Aluno" EntityType="AcademiaDBModel.Aluno" />
+          <EntitySet Name="Filial" EntityType="AcademiaDBModel.Filial" />
+          <AssociationSet Name="FK_Aluno_Filial" Association="AcademiaDBModel.FK_Aluno_Filial">
+            <End Role="Filial" EntitySet="Filial" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <EntitySet Name="Mensalidade" EntityType="AcademiaDBModel.Mensalidade" />
+          <AssociationSet Name="FK_ALUNO_TITULO" Association="AcademiaDBModel.FK_ALUNO_TITULO">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Mensalidade" EntitySet="Mensalidade" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="nrCPF" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="false" />
+          <Property Name="nrCelular" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
+          <Property Name="endereco" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="sexo" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="dtNascimento" Type="DateTime" Precision="3" />
+          <Property Name="idFilial" Type="Int32" />
+          <NavigationProperty Name="FILIAL" Relationship="AcademiaDBModel.FK_Aluno_Filial" FromRole="Aluno" ToRole="Filial" />
+          <NavigationProperty Name="MENSALIDADES" Relationship="AcademiaDBModel.FK_ALUNO_TITULO" FromRole="Aluno" ToRole="Mensalidade" />
+        </EntityType>
+        <EntityType Name="Filial">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="endereco" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="nrTelefone" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
+          <Property Name="dsBairro" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="dsEmail" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ALUNOS" Relationship="AcademiaDBModel.FK_Aluno_Filial" FromRole="Filial" ToRole="Aluno" />
+          <Property Name="VL_PRECO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+        </EntityType>
+        <Association Name="FK_Aluno_Filial">
+          <End Role="Filial" Type="AcademiaDBModel.Filial" Multiplicity="0..1" />
+          <End Role="Aluno" Type="AcademiaDBModel.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filial">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="idFilial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Mensalidade">
+          <Key>
+            <PropertyRef Name="ID_TITULO" />
+          </Key>
+          <Property Type="Int32" Name="ID_TITULO" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ID_ALUNO" Nullable="false" />
+          <Property Type="Int32" Name="NU_ANO" Nullable="false" />
+          <Property Type="Int32" Name="NU_PARCELA" Nullable="false" />
+          <Property Type="DateTime" Name="DT_VENCIMENTO" Nullable="false" Precision="0" />
+          <Property Type="String" Name="ST_TITULO" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="DT_PAGAMENTO" Precision="3" />
+          <Property Type="Decimal" Name="VL_TITULO" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="ALUNO" Relationship="AcademiaDBModel.FK_ALUNO_TITULO" FromRole="Mensalidade" ToRole="Aluno" />
+        </EntityType>
+        <Association Name="FK_ALUNO_TITULO">
+          <End Type="AcademiaDBModel.Aluno" Role="Aluno" Multiplicity="1" />
+          <End Type="AcademiaDBModel.Mensalidade" Role="Mensalidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mensalidade">
+              <PropertyRef Name="ID_ALUNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AcademiaDBModelStoreContainer" CdmEntityContainer="AcademiaDBEntities">
+          <EntitySetMapping Name="Aluno">
+            <EntityTypeMapping TypeName="AcademiaDBModel.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="id" ColumnName="ID_ALUNO" />
+                <ScalarProperty Name="nome" ColumnName="DS_NOME" />
+                <ScalarProperty Name="nrCPF" ColumnName="NR_CPF" />
+                <ScalarProperty Name="nrCelular" ColumnName="NR_CELULAR" />
+                <ScalarProperty Name="endereco" ColumnName="DS_ENDERECO" />
+                <ScalarProperty Name="sexo" ColumnName="DS_SEXO" />
+                <ScalarProperty Name="dtNascimento" ColumnName="DT_NASCIMENTO" />
+                <ScalarProperty Name="idFilial" ColumnName="ID_ACADEMIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filial">
+            <EntityTypeMapping TypeName="AcademiaDBModel.Filial">
+              <MappingFragment StoreEntitySet="Filial">
+                <ScalarProperty Name="VL_PRECO" ColumnName="VL_PRECO" />
+                <ScalarProperty Name="id" ColumnName="ID_ACADEMIA" />
+                <ScalarProperty Name="descricao" ColumnName="DS_ACADEMIA" />
+                <ScalarProperty Name="endereco" ColumnName="DS_ENDERECO" />
+                <ScalarProperty Name="nrTelefone" ColumnName="NR_TELEFONE" />
+                <ScalarProperty Name="dsBairro" ColumnName="DS_BAIRRO" />
+                <ScalarProperty Name="dsEmail" ColumnName="DS_EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mensalidade">
+            <EntityTypeMapping TypeName="AcademiaDBModel.Mensalidade">
+              <MappingFragment StoreEntitySet="Mensalidade">
+                <ScalarProperty Name="VL_TITULO" ColumnName="VL_TITULO" />
+                <ScalarProperty Name="DT_PAGAMENTO" ColumnName="DT_PAGAMENTO" />
+                <ScalarProperty Name="ST_TITULO" ColumnName="ST_TITULO" />
+                <ScalarProperty Name="DT_VENCIMENTO" ColumnName="DT_VENCIMENTO" />
+                <ScalarProperty Name="NU_PARCELA" ColumnName="NU_PARCELA" />
+                <ScalarProperty Name="NU_ANO" ColumnName="NU_ANO" />
+                <ScalarProperty Name="ID_ALUNO" ColumnName="ID_ALUNO" />
+                <ScalarProperty Name="ID_TITULO" ColumnName="ID_TITULO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

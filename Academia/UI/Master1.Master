@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master1.master.cs" Inherits="UI.Master1" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Academia i9 - Home</title>
+</head>
+<body style="height: auto">
+    <form id="form1" runat="server">
+        <asp:ToolkitScriptManager ID="TkSManager" runat="server"></asp:ToolkitScriptManager>
+        <asp:Image ID="Image1" ImageUrl="~/Imagens/Topo.jpg" runat="server" Height="285px" Width="100%" />
+        <div style="float: left; width: 20%; background-color: #FFF5EE; height: 100%; color: #FFF5EE; clear: initial" class="bt-03">
+            <asp:Button ID="btnCadastrarFilial" runat="server" Text="Cadastrar Filial" Width="100%" CausesValidation="False" Height="50px" OnClick="btnCadastrarFilial_Click" ForeColor="#99CC00" />
+            <asp:Button ID="btnCadastrarAluno" runat="server" Text="Cadastrar Aluno" Width="100%" CausesValidation="False" Height="50px" OnClick="btnCadastrarAluno_Click" ForeColor="#99CC00" />
+            <asp:Button ID="btnMatricularAluno" runat="server" Text="Matricular Aluno" Width="100%" CausesValidation="false" Height="50px" OnClick="btnMatricularAluno_Click" ForeColor="#99CC00" />
+            <asp:Button ID="btnConsultarMensalidadesAbertas" runat="server" Text="Mensalidades Abertas" Width="100%" CausesValidation="false" Height="50px" ForeColor="#99CC00" OnClick="btnConsultarMensalidadesAbertas_Click" />
+
+        </div>
+
+        <div style="float: left; width: 79%; height: 707px;">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
